@@ -56,7 +56,7 @@ public class Platform {
         capabilities.setCapability("automationName", "Appium");
         capabilities.setCapability("appPackage", "org.wikipedia");
         capabilities.setCapability("appActivity", ".main.MainActivity");
-        capabilities.setCapability("app", "C:\\Users\\vsary\\JavaAppiumAutomation\\apks\\org.wikipedia.apk");
+        capabilities.setCapability("app", "/Users/karma/Documents/GitHub/JavaAppiumAutomation/apks/org.wikipedia.apk");
         capabilities.setCapability("orientation", "PORTRAIT");
 
         return capabilities;

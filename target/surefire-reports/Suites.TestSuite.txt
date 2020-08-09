@@ -1,0 +1,28 @@
+-------------------------------------------------------------------------------
+Test set: Suites.TestSuite
+-------------------------------------------------------------------------------
+Tests run: 18, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 1,316.656 s <<< FAILURE! - in Suites.TestSuite
+testCheckArticleTitlePresent(tests.ArticleTests)  Time elapsed: 74.695 s  <<< ERROR!
+org.openqa.selenium.NoSuchElementException: 
+An element could not be located on the page using the given search parameters.
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.12.0', revision: '7c6e0b3', time: '2018-05-08T14:04:26.12Z'
+System info: host: 'MacBook-Pro-Denis.local', ip: 'fe80:0:0:0:14b3:c1a4:5368:b3fb%en0', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.15.5', java.version: '1.8.0_172'
+Driver info: io.appium.java_client.android.AndroidDriver
+Capabilities {app: /Users/karma/Documents/GitH..., appActivity: .main.MainActivity, appPackage: org.wikipedia, automationName: Appium, databaseEnabled: false, desired: {app: /Users/karma/Documents/GitH..., appActivity: .main.MainActivity, appPackage: org.wikipedia, automationName: Appium, deviceName: AndroidTestDevice, orientation: PORTRAIT, platformName: android, platformVersion: 8.0}, deviceApiLevel: 26, deviceManufacturer: Google, deviceModel: Android SDK built for x86, deviceName: emulator-5554, deviceScreenDensity: 480, deviceScreenSize: 1080x1920, deviceUDID: emulator-5554, javascriptEnabled: true, locationContextEnabled: false, networkConnectionEnabled: true, orientation: PORTRAIT, pixelRatio: 3, platform: LINUX, platformName: Android, platformVersion: 8.0.0, statBarHeight: 72, takesScreenshot: true, viewportRect: {height: 1704, left: 0, top: 72, width: 1080}, warnings: {}, webStorageEnabled: false}
+Session ID: b7a77ea8-7f12-4369-9463-92ce8b203b0e
+*** Element info: {Using=id, value=org.wikipedia:id/view_page_title_text}
+	at tests.ArticleTests.testCheckArticleTitlePresent(ArticleTests.java:57)
+
+testSaveTwoArticleToMyListAndDeleteOneOfThem(tests.MyListsTests)  Time elapsed: 209.487 s  <<< ERROR!
+org.openqa.selenium.InvalidSelectorException: 
+java.lang.IllegalArgumentException: Unable to compile 'Island of Indonesia'. See Cause.
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/invalid_selector_exception.html
+Build info: version: '3.12.0', revision: '7c6e0b3', time: '2018-05-08T14:04:26.12Z'
+System info: host: 'MacBook-Pro-Denis.local', ip: 'fe80:0:0:0:14b3:c1a4:5368:b3fb%en0', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.15.5', java.version: '1.8.0_172'
+Driver info: io.appium.java_client.android.AndroidDriver
+Capabilities {app: /Users/karma/Documents/GitH..., appActivity: .main.MainActivity, appPackage: org.wikipedia, automationName: Appium, databaseEnabled: false, desired: {app: /Users/karma/Documents/GitH..., appActivity: .main.MainActivity, appPackage: org.wikipedia, automationName: Appium, deviceName: AndroidTestDevice, orientation: PORTRAIT, platformName: android, platformVersion: 8.0}, deviceApiLevel: 26, deviceManufacturer: Google, deviceModel: Android SDK built for x86, deviceName: emulator-5554, deviceScreenDensity: 480, deviceScreenSize: 1080x1920, deviceUDID: emulator-5554, javascriptEnabled: true, locationContextEnabled: false, networkConnectionEnabled: true, orientation: PORTRAIT, pixelRatio: 3, platform: LINUX, platformName: Android, platformVersion: 8.0.0, statBarHeight: 72, takesScreenshot: true, viewportRect: {height: 1704, left: 0, top: 72, width: 1080}, warnings: {}, webStorageEnabled: false}
+Session ID: 622de5ee-33d6-4797-a778-51fb5d4a7ec4
+*** Element info: {Using=xpath, value=Island of Indonesia}
+	at tests.MyListsTests.testSaveTwoArticleToMyListAndDeleteOneOfThem(MyListsTests.java:118)
+
