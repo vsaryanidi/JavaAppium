@@ -2,6 +2,7 @@ package lib.ui.android;
 
 import io.appium.java_client.AppiumDriver;
 import lib.ui.ArticlePageObject;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class AndroidArticlePageObject extends ArticlePageObject {
 
@@ -18,7 +19,7 @@ public class AndroidArticlePageObject extends ArticlePageObject {
                 ADD_TO_MY_EXISTING_LIST_TPL = "xpath://*[@resource-id='org.wikipedia:id/item_title'][@text='{LIST_NAME}']";
     }
 
-    public AndroidArticlePageObject (AppiumDriver driver) {
+    public AndroidArticlePageObject (RemoteWebDriver driver) {
 
         super(driver);
     }

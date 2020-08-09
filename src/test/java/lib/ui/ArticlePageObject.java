@@ -4,51 +4,52 @@ import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import lib.Platform;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
-abstract public class ArticlePageObject extends MainPageObject{
+abstract public class ArticlePageObject extends MainPageObject {
 
     protected static String
-                TITLE,
-                ARTICLE_DESCRIPTION,
-                FOOTER_ELEMENT,
-                OPTIONS_BUTTON,
-                OPTIONS_ADD_MY_LIST_BUTTON,
-                ADD_TO_MY_LIST_OVERLAY,
-                MY_LIST_NAME_INPUT,
-                MY_LIST_OK_BUTTON,
-                CLOSE_ARTICLE_BUTTON,
-                ADD_TO_MY_EXISTING_LIST_TPL
-                ;
+            TITLE,
+            ARTICLE_DESCRIPTION,
+            FOOTER_ELEMENT,
+            OPTIONS_BUTTON,
+            OPTIONS_ADD_MY_LIST_BUTTON,
+            ADD_TO_MY_LIST_OVERLAY,
+            MY_LIST_NAME_INPUT,
+            MY_LIST_OK_BUTTON,
+            CLOSE_ARTICLE_BUTTON,
+            ADD_TO_MY_EXISTING_LIST_TPL;
 
     /*TEMPLATES METHODS*/
-    private static String getMyListName (String list_name) {
+    private static String getMyListName(String list_name) {
 
         return ADD_TO_MY_EXISTING_LIST_TPL.replace("{LIST_NAME}", list_name);
     }
     /*TEMPLATES METHODS*/
 
-    public ArticlePageObject (AppiumDriver driver) {
+    public ArticlePageObject(RemoteWebDriver driver) {
         super(driver);
     }
 
     public WebElement waitForTitleElement() {
-        return this.waitForElementPresent(TITLE,"Cannot find article title on page!", 15);
+        return this.waitForElementPresent(TITLE, "Cannot find article title on page!", 15);
     }
 
     public WebElement waitForArticleDescriptionElement() {
-        return this.waitForElementPresent(ARTICLE_DESCRIPTION,"Cannot find article description on page!", 15);
+        return this.waitForElementPresent(ARTICLE_DESCRIPTION, "Cannot find article description on page!", 15);
 
-        }
+    }
 
     public String getArticleTitle() {
         WebElement title_element = waitForTitleElement();
         if (Platform.getInstance().isAndroid()) {
             return title_element.getAttribute("text");
-        } else {
+        } else if (Platform.getInstance().isIOS()) {
             return title_element.getAttribute("name");
-        }
+        } else {
+            return title_element.getText();
+        }}
 
-    }
 
 
     public String getArticleDescription() {
@@ -69,7 +70,18 @@ abstract public class ArticlePageObject extends MainPageObject{
                     "Cannot find the end of article",
                     40
             );
-        } else {this.swipeUpTitleElementAppear(FOOTER_ELEMENT, "Cannot find the end of article", 40);}
+        } else if (Platform.getInstance().isIOS()) {
+            this.swipeUpTitleElementAppear(
+                    FOOTER_ELEMENT,
+                    "Cannot find the end of article",
+                    40);
+        } else {
+            this.scrollWebPageTillElementNotVisible(
+                    FOOTER_ELEMENT,
+                    "Cannot find the end of article",
+                    40
+            );
+        }
     }
 
     public void addArticleToMyList(String name_of_folder) {

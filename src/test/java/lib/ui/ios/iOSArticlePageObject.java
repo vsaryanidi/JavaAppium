@@ -2,6 +2,7 @@ package lib.ui.ios;
 
 import io.appium.java_client.AppiumDriver;
 import lib.ui.ArticlePageObject;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class iOSArticlePageObject extends ArticlePageObject {
 
@@ -14,7 +15,7 @@ public class iOSArticlePageObject extends ArticlePageObject {
         ADD_TO_MY_EXISTING_LIST_TPL = "xpath://*[@resource-id='org.wikipedia:id/item_title'][@text='{LIST_NAME}']";
     }
 
-    public iOSArticlePageObject(AppiumDriver driver) {
+    public iOSArticlePageObject(RemoteWebDriver driver) {
 
         super(driver);
     }

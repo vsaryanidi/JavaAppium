@@ -24,7 +24,7 @@ public class MyListsTests extends CoreTestCase {
 
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("Java");
-        SearchPageObject.clickByArticleWithSubstring("Object-oriented programming language");
+        SearchPageObject.clickByArticleWithSubstring("bject-oriented programming language");
 
         ArticlePageObject ArticlePageObject = ArticlePageObjectFactory.get(driver);
         ArticlePageObject.waitForTitleElement();
@@ -69,7 +69,7 @@ public class MyListsTests extends CoreTestCase {
 
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("Java");
-        SearchPageObject.clickByArticleWithSubstring("Object-oriented programming language");
+        SearchPageObject.clickByArticleWithSubstring("bject-oriented programming language");
 
         ArticlePageObject ArticlePageObject = ArticlePageObjectFactory.get(driver);
         ArticlePageObject.waitForTitleElement();
@@ -90,7 +90,7 @@ public class MyListsTests extends CoreTestCase {
             SearchPageObject.typeSearchLine("Java");
         }
 
-        SearchPageObject.clickByArticleWithSubstring("Island of Indonesia");
+        SearchPageObject.clickByArticleWithSubstring("sland of Indonesia");
 
         ArticlePageObject.waitForArticleDescriptionElement();
 

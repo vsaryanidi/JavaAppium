@@ -19,9 +19,9 @@ public class ChangeAppConditionTests extends CoreTestCase {
 
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("Java");
-        SearchPageObject.waitForSearchResult("Object-oriented programming language");
+        SearchPageObject.waitForSearchResult("bject-oriented programming language");
         this.backgroundApp(Duration.ofSeconds(2));
-        SearchPageObject.waitForSearchResult("Object-oriented programming language");
+        SearchPageObject.waitForSearchResult("bject-oriented programming language");
 
     }
 
@@ -32,7 +32,7 @@ public class ChangeAppConditionTests extends CoreTestCase {
 
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("Java");
-        SearchPageObject.clickByArticleWithSubstring("Object-oriented programming language");
+        SearchPageObject.clickByArticleWithSubstring("bject-oriented programming language");
 
         ArticlePageObject ArticlePageObject = ArticlePageObjectFactory.get(driver);
         String title_before_rotation = ArticlePageObject.getArticleTitle();
