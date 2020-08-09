@@ -232,6 +232,23 @@ public class MainPageObject {
         }
     }
 
+    public void tryClickElementWithFewAttemts(String locator, String error_message, int amount_of_attempts) {
+
+        int current_attempts = 0;
+        boolean need_more_attempts = true;
+
+        while (need_more_attempts) {
+            try {
+                this.waitForElementAndClick(locator, error_message, 1);
+                need_more_attempts = false;
+            } catch (Exception e) {
+                if (current_attempts > amount_of_attempts) {
+                    this.waitForElementAndClick(locator, error_message, 1);
+                }
+            } ++current_attempts;
+        }
+    }
+
     public int getAmountOfElements(String locator) {
 
         By by = this.getLocatorByString(locator);
@@ -246,6 +263,10 @@ public class MainPageObject {
             String default_message = "An element '" + by.toString() + "' supposed to be not present";
             throw new AssertionError(default_message + error_message);
         }
+    }
+
+    public boolean isElementPresent(String locator) {
+        return getAmountOfElements(locator) > 0;
     }
 
     public String waitForElementAndGetAttribute(String locator, String attribute, String error_message, long timeInSeconds) {
@@ -292,4 +313,6 @@ public class MainPageObject {
             throw new IllegalArgumentException("Cannot get type of locator. Locator: " + locator_with_type);
         }
     }
+
+
 }

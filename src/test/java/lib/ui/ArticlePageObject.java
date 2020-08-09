@@ -14,6 +14,7 @@ abstract public class ArticlePageObject extends MainPageObject {
             FOOTER_ELEMENT,
             OPTIONS_BUTTON,
             OPTIONS_ADD_MY_LIST_BUTTON,
+            OPTIONS_REMOVE_FROM_MY_LIST_BUTTON,
             ADD_TO_MY_LIST_OVERLAY,
             MY_LIST_NAME_INPUT,
             MY_LIST_OK_BUTTON,
@@ -126,11 +127,16 @@ abstract public class ArticlePageObject extends MainPageObject {
     }
 
     public void closeArticle () {
-        this.waitForElementAndClick(
-                CLOSE_ARTICLE_BUTTON,
-                "Cannot close article, cannot find X link",
-                5
-        );
+
+        if (Platform.getInstance().isIOS() || Platform.getInstance().isAndroid())  {
+            this.waitForElementAndClick(
+                    CLOSE_ARTICLE_BUTTON,
+                    "Cannot close article, cannot find X link",
+                    5
+            );
+        } else {
+                System.out.println("Method swipeElementToLeft() does nothing for platform " + Platform.getInstance().getPlatformVar());
+        }
     }
 
     public void addArticleToMyExistingList(String name_of_folder) {
@@ -165,7 +171,21 @@ abstract public class ArticlePageObject extends MainPageObject {
 
     }
 
+    public void removeArticleFromSavedIfItAdded () {
+        if (this.isElementPresent(OPTIONS_REMOVE_FROM_MY_LIST_BUTTON)) {
+
+            this.waitForElementAndClick(OPTIONS_REMOVE_FROM_MY_LIST_BUTTON, "Cannot click button to remove from saved", 1);
+
+            this.waitForElementPresent(OPTIONS_REMOVE_FROM_MY_LIST_BUTTON, "Cannot find button to add to saved list after removing it from this list before", 1);
+        }
+    }
+
     public void addArticleToMySaved() {
+
+        if (Platform.getInstance().isMW()) {
+            this.removeArticleFromSavedIfItAdded();
+        }
         waitForElementAndClick(OPTIONS_ADD_MY_LIST_BUTTON, "Cannot find option to add article to reading list", 5);
+
     }
 }

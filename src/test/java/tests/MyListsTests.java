@@ -2,20 +2,21 @@ package tests;
 
 import lib.CoreTestCase;
 import lib.Platform;
-import lib.ui.ArticlePageObject;
-import lib.ui.MyListsPageObject;
-import lib.ui.NavigationUI;
-import lib.ui.SearchPageObject;
+import lib.ui.*;
 import lib.ui.factories.ArticlePageObjectFactory;
 import lib.ui.factories.MyListsPageObjectFactory;
 import lib.ui.factories.NavigationUIFactory;
 import lib.ui.factories.SearchPageObjectFactory;
+import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
 
 public class MyListsTests extends CoreTestCase {
 
     private static final String name_of_folder = "Learning programming";
+    private static final String
+    login = "VSaryanidi",
+    password = "VSaryanidi123456";
 
     @Test
     public void testSaveFirstArticleToMyList() {
@@ -37,6 +38,21 @@ public class MyListsTests extends CoreTestCase {
             ArticlePageObject.addArticleToMySaved();
         }
 
+
+        if (Platform.getInstance().isMW()) {
+            AutorizationPegeObject Auth = new AutorizationPegeObject(driver);
+            Auth.clickAuthButton();
+            Auth.enterLoginData(login, password);
+            Auth.submitForm();
+
+            ArticlePageObject.waitForTitleElement();
+            System.out.println(article_title);
+            System.out.println(ArticlePageObject.getArticleTitle());
+            assertEquals("We are not on the same page after login", article_title, ArticlePageObject.getArticleTitle());
+            System.out.println("assert успешен");
+            ArticlePageObject.addArticleToMySaved();
+        }
+
         ArticlePageObject.closeArticle();
 
         if (Platform.getInstance().isIOS()) {
@@ -44,6 +60,7 @@ public class MyListsTests extends CoreTestCase {
         }
 
         NavigationUI NavigationUI = NavigationUIFactory.get(driver);
+        NavigationUI.openNavigation();
         NavigationUI.clickMyLists();
 
         MyListsPageObject MyListsPageObject = MyListsPageObjectFactory.get(driver);
@@ -79,6 +96,17 @@ public class MyListsTests extends CoreTestCase {
         if (Platform.getInstance().isAndroid()) {
             ArticlePageObject.addArticleToMyList(name_of_folder);
         } else {
+            ArticlePageObject.addArticleToMySaved();
+        }
+
+        if (Platform.getInstance().isMW()) {
+            AutorizationPegeObject Auth = new AutorizationPegeObject(driver);
+            Auth.clickAuthButton();
+            Auth.enterLoginData(login, password);
+            Auth.submitForm();
+
+            ArticlePageObject.waitForTitleElement();
+            assertEquals("We are not on the same page after login", article_title, ArticlePageObject.getArticleTitle());
             ArticlePageObject.addArticleToMySaved();
         }
 
