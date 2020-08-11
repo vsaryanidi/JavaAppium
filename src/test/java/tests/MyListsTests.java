@@ -86,12 +86,13 @@ public class MyListsTests extends CoreTestCase {
 
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("Java");
-        SearchPageObject.clickByArticleWithSubstring("bject-oriented programming language");
+        SearchPageObject.clickByArticleWithSubstring("igh-level programming language");
 
         ArticlePageObject ArticlePageObject = ArticlePageObjectFactory.get(driver);
         ArticlePageObject.waitForTitleElement();
 
         String article_title = ArticlePageObject.getArticleTitle();
+
 
         if (Platform.getInstance().isAndroid()) {
             ArticlePageObject.addArticleToMyList(name_of_folder);
@@ -112,18 +113,26 @@ public class MyListsTests extends CoreTestCase {
 
         ArticlePageObject.closeArticle();
 
-        if (Platform.getInstance().isAndroid()) {
+
+        if (Platform.getInstance().isAndroid() || Platform.getInstance().isMW()) {
             SearchPageObject.initSearchInput();
 
             SearchPageObject.typeSearchLine("Java");
         }
 
-        SearchPageObject.clickByArticleWithSubstring("sland of Indonesia");
+        SearchPageObject.clickByArticleWithSubstring("bject-oriented programming language");
 
-        ArticlePageObject.waitForArticleDescriptionElement();
+        if (Platform.getInstance().isAndroid() || Platform.getInstance().isIOS()) {
+            ArticlePageObject.waitForArticleDescriptionElement();
+        }
+
+
+        String article_ref = ArticlePageObject.getArticleRef();
+
 
         String article_description = ArticlePageObject.getArticleDescription();
         System.out.println(article_description);
+
 
         if (Platform.getInstance().isAndroid()) {
             ArticlePageObject.addArticleToMyExistingList(name_of_folder);
@@ -138,6 +147,7 @@ public class MyListsTests extends CoreTestCase {
         }
 
         NavigationUI NavigationUI = NavigationUIFactory.get(driver);
+        NavigationUI.openNavigation();
         NavigationUI.clickMyLists();
         MyListsPageObject MyListsPageObject = MyListsPageObjectFactory.get(driver);
 
@@ -145,12 +155,17 @@ public class MyListsTests extends CoreTestCase {
             MyListsPageObject.openFolderByName(name_of_folder);
             System.out.println(driver.findElements(By.xpath(article_description)));
 
-        } else {
+        } else if (Platform.getInstance().isIOS()) {
             MyListsPageObject.closeSyncYourSavedArticle();
         }
 
-        MyListsPageObject.swipeByArticleToDelete(article_description);
-        MyListsPageObject.waitForArticleToAppearByTitle(article_title);
+        MyListsPageObject.swipeByArticleToDelete(article_title);
+        MyListsPageObject.waitForArticleToAppearByRef(article_ref);
+
+        if (Platform.getInstance().isAndroid() || Platform.getInstance().isIOS()) {
+        MyListsPageObject.waitForArticleToDisappearByTitle(article_description);
+
+        }
 
 
 

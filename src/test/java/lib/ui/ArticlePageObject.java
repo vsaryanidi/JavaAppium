@@ -11,6 +11,7 @@ abstract public class ArticlePageObject extends MainPageObject {
     protected static String
             TITLE,
             ARTICLE_DESCRIPTION,
+            ARTICLE_REF,
             FOOTER_ELEMENT,
             OPTIONS_BUTTON,
             OPTIONS_ADD_MY_LIST_BUTTON,
@@ -36,6 +37,10 @@ abstract public class ArticlePageObject extends MainPageObject {
         return this.waitForElementPresent(TITLE, "Cannot find article title on page!", 15);
     }
 
+    public WebElement waitForRefArticleElement() {
+        return this.waitForElementPresent(ARTICLE_REF, "Cannot find article ref on page!", 15);
+    }
+
     public WebElement waitForArticleDescriptionElement() {
         return this.waitForElementPresent(ARTICLE_DESCRIPTION, "Cannot find article description on page!", 15);
 
@@ -49,17 +54,32 @@ abstract public class ArticlePageObject extends MainPageObject {
             return title_element.getAttribute("name");
         } else {
             return title_element.getText();
-        }}
-
+        }
+    }
 
 
     public String getArticleDescription() {
-        WebElement article_description_element = waitForArticleDescriptionElement();
+
 
         if (Platform.getInstance().isIOS()) {
-        return article_description_element.getAttribute("name");
-        } else {
+            WebElement article_description_element = waitForArticleDescriptionElement();
+            return article_description_element.getAttribute("name");
+        } else if (Platform.getInstance().isAndroid()){
+            WebElement article_description_element = waitForArticleDescriptionElement();
             return article_description_element.getAttribute("text");
+        } else {
+            return "Cannot find this element for " + Platform.getInstance().getPlatformVar();
+        }
+
+    }
+
+    public String getArticleRef() {
+
+        if (Platform.getInstance().isMW()) {
+            WebElement ref_article = this.waitForRefArticleElement();
+            return ref_article.getAttribute("href");
+        } else {
+            return "Cannot find this element for " + Platform.getInstance().getPlatformVar();
         }
 
     }
@@ -126,16 +146,16 @@ abstract public class ArticlePageObject extends MainPageObject {
         );
     }
 
-    public void closeArticle () {
+    public void closeArticle() {
 
-        if (Platform.getInstance().isIOS() || Platform.getInstance().isAndroid())  {
+        if (Platform.getInstance().isIOS() || Platform.getInstance().isAndroid()) {
             this.waitForElementAndClick(
                     CLOSE_ARTICLE_BUTTON,
                     "Cannot close article, cannot find X link",
                     5
             );
         } else {
-                System.out.println("Method swipeElementToLeft() does nothing for platform " + Platform.getInstance().getPlatformVar());
+            System.out.println("Method swipeElementToLeft() does nothing for platform " + Platform.getInstance().getPlatformVar());
         }
     }
 
@@ -156,14 +176,14 @@ abstract public class ArticlePageObject extends MainPageObject {
         String list_name_xpath = getMyListName(name_of_folder);
 
         this.waitForElementAndClick(
-                 list_name_xpath,
+                list_name_xpath,
                 "Cannot find folder " + name_of_folder + " in saved reading lists",
                 5
         );
 
     }
 
-    public void assertArticleTitlePresent () {
+    public void assertArticleTitlePresent() {
 
         this.assertElementPresent(
                 TITLE,
@@ -171,7 +191,7 @@ abstract public class ArticlePageObject extends MainPageObject {
 
     }
 
-    public void removeArticleFromSavedIfItAdded () {
+    public void removeArticleFromSavedIfItAdded() {
         if (this.isElementPresent(OPTIONS_REMOVE_FROM_MY_LIST_BUTTON)) {
 
             this.waitForElementAndClick(OPTIONS_REMOVE_FROM_MY_LIST_BUTTON, "Cannot click button to remove from saved", 1);
@@ -188,4 +208,7 @@ abstract public class ArticlePageObject extends MainPageObject {
         waitForElementAndClick(OPTIONS_ADD_MY_LIST_BUTTON, "Cannot find option to add article to reading list", 5);
 
     }
+
+
+
 }
